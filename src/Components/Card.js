@@ -1,21 +1,32 @@
 import React from 'react';
+import styled from 'styled-components';
 
 
 const Card=({id,name,email})=>{
     return(
-        <div className='tc bg-light-green dib br3 pa3 ma2 grow bw 2 shadow-5'>
-            
-            <div>
+        <MainContainer>
                 <img alt="" src={`https://robohash.org/${id}?200x200`}/>
-                <div>
+                <DescriptionContainer>
                     <p>{name}</p>
                     <p>{email}</p>
-                </div>
-            </div>
+                </DescriptionContainer>
             
-        </div>
+            
+        </MainContainer>
         
     )
 }
 
 export default Card;
+
+const MainContainer =styled.div`
+    margin:10px;
+    border-radius:10px;
+    background-color:aliceblue;
+`
+const DescriptionContainer=styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+`

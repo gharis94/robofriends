@@ -1,17 +1,24 @@
 import React from 'react';
-
+import styled from 'styled-components';
 
 const SearchBox = ({SearchChange}) =>{
     return(
         
-        <div className='pa2'>
-            <input 
+        
+            <Container 
                 className='pa3 ba b--green bg-lightest-blue'
                 type='seach' placeholder='search robots'
                 onChange={SearchChange}
             />
             
-        </div>
+        
     )
 }
 export default SearchBox;
+
+const Container = styled.input`
+    border-radius:5px;
+    border-block:inherit;
+    height:20px;
+    width:250px;
+`

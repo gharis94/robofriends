@@ -1,56 +1,50 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import CardList from '../Components/CardList';
 //import { robots } from './robots';
 import SearchBox from '../Components/SearchBox';
 import './App.css'
-import Scroll from '../Components/Sroll';
-import ErrorBoundry from '../Components/ErrorBoundry';
+import styled from 'styled-components';
 
 
-
-
-class App extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            robots : [],
-            searchfield:''
-
+const App =()=>{
+    const [robots,setRobots]=useState([])
+    const [searchField,setSearchField] = useState('')
+    const [filterd,setfilterd] =useState(robots)
+    useEffect(()=>{
+        const fetchData =async()=>{
+            const rsp = await fetch('https://jsonplaceholder.typicode.com/users')
+            const rspJSON = await rsp.json()
+            setRobots(rspJSON)
         }
-    }
-    componentDidMount(){
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response =>{
-                return response.json();
-            })
-                .then(user=>{
-                    this.setState({robots:user});
-                })
-        
-    }
-    onSearchChange =(event) =>{
-        this.setState({searchfield: event.target.value})
-        
-    }
-    render(){
-        const filteredRobots = this.state.robots.filter(robots =>{
-            return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
-        })
-        
-        return(
-            <div className='tc'>
-                <h1>Robofriends</h1>
-                <SearchBox SearchChange={this.onSearchChange}/>
-                <Scroll>
-                    <ErrorBoundry>
-                        <CardList robots={filteredRobots}/>
-                    </ErrorBoundry>
-                    
-                </Scroll>
-            </div>
-            
-        )
-    }
+        fetchData()
+    },[])
     
+    useEffect(()=>{
+        const rsp = robots.filter(val=>val.name.toLowerCase().includes(searchField))
+        setfilterd(rsp)
+    },[searchField,robots])
+
+    const handleChange=(e)=>{
+        setSearchField(e.target.value.toLowerCase())
+    }
+
+
+    return(
+        
+        <MainContainer>
+            <h1>Robofriends</h1>
+            <SearchBox SearchChange={handleChange}/>
+            <CardList robots={filterd}/>
+         </MainContainer>
+    )
 }
+
+
 export default App;
+
+const MainContainer = styled.div`
+    margin:5px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+`

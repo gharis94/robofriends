@@ -1,13 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 //import { robots } from './robots';
 import Card from './Card';
 
 
 const CardList = ({robots}) => {
     return (
-        <div>
+        <MainContainer>
             {
-                robots.map((user, i) => {
+               robots && robots.map((user, i) => {
                     return (
                         
                         <Card
@@ -24,8 +25,14 @@ const CardList = ({robots}) => {
                 })
             }
 
-        </div>
+        </MainContainer>
 
     )
 }
 export default CardList;
+
+const MainContainer = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    
+`
