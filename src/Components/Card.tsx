@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Monster } from '../Containers/App';
 
+type CardProps={
+    robot:Monster
+}
 
-const Card=({id,name,email})=>{
+const Card=({robot}:CardProps)=>{
+    const { id, name, email } =robot
     return(
         <MainContainer>
                 <img alt="" src={`https://robohash.org/${id}?200x200`}/>

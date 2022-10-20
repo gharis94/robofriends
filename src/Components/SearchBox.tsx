@@ -1,7 +1,11 @@
-import React from 'react';
+import React,{ChangeEventHandler,ChangeEvent} from 'react';
 import styled from 'styled-components';
 
-const SearchBox = ({SearchChange}) =>{
+type Prop={
+   SearchChange:(event:ChangeEvent<HTMLInputElement>)=>void
+}
+
+const SearchBox = ({SearchChange}:Prop) =>{
     return(
         
         

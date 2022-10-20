@@ -1,22 +1,29 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,ChangeEvent} from 'react';
 import CardList from '../Components/CardList';
 //import { robots } from './robots';
 import SearchBox from '../Components/SearchBox';
 import './App.css'
 import styled from 'styled-components';
+import {fetchData} from '../utils/fetchData'
+
+export type Monster={
+    id:string;
+    name:string;
+    email:string;
+}
 
 
 const App =()=>{
-    const [robots,setRobots]=useState([])
+    const [robots,setRobots]=useState<Monster[]>([])
     const [searchField,setSearchField] = useState('')
     const [filterd,setfilterd] =useState(robots)
     useEffect(()=>{
-        const fetchData =async()=>{
-            const rsp = await fetch('https://jsonplaceholder.typicode.com/users')
-            const rspJSON = await rsp.json()
-            setRobots(rspJSON)
+        const fetchDatafn =async()=>{
+        const users = await fetchData<Monster[]>('https://jsonplaceholder.typicode.com/users')
+            
+            setRobots(users)
         }
-        fetchData()
+        fetchDatafn()
     },[])
     
     useEffect(()=>{
@@ -24,13 +31,12 @@ const App =()=>{
         setfilterd(rsp)
     },[searchField,robots])
 
-    const handleChange=(e)=>{
+    const handleChange=(e:ChangeEvent<HTMLInputElement>):void=>{
         setSearchField(e.target.value.toLowerCase())
     }
 
 
     return(
-        
         <MainContainer>
             <h1>Robofriends</h1>
             <SearchBox SearchChange={handleChange}/>
