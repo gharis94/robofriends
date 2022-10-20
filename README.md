@@ -7,4 +7,4 @@ This project is build to understand the core hooks "useState & useHook". Followi
 #### Component Styled Library
 #### Data fetching from API
 #### Deployed on Netlify
-
+### Checkout branch typscript for Typescript version code
